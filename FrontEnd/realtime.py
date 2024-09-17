@@ -115,8 +115,6 @@ def to_speaker(text):
 
 
 
-
-
 # def from_mic():
     # speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config)
 
