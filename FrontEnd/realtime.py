@@ -7,14 +7,13 @@ from rosieTextGen import textGen
 
 keywords = ['Hey, Rosie', 'Hey Rosie', 'Hi, Rosie', 'Hi Rosie', 'Rosie']
 endwords = ['End conversation.', 'That will be all.']
+action_words = ['Rosie, untuck', 'Rosie, tuck', 'Hey Rosie, untuck', 'Hey Rosie, tuck']
+confirmation_words = ['Yes, untuck', 'Yes, tuck', 'Please untuck', 'Please tuck']
+
 speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
-#audio config
 audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
-#default voice can be change or custom
 speech_config.speech_synthesis_voice_name='en-US-JennyNeural'
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
-
 
 def conversation_transcriber_recognition_canceled_cb(evt: speechsdk.SessionEventArgs):
     print('Canceled event')
@@ -33,9 +32,8 @@ def conversation_transcriber_transcribed_cb(evt: speechsdk.SpeechRecognitionEven
 def conversation_transcriber_session_started_cb(evt: speechsdk.SessionEventArgs):
     print('SessionStarted event')
 
-
-def printline(): print('------------------------------------------------\n')
-
+def printline(): 
+    print('------------------------------------------------\n')
 
 def from_mic():
     speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config)
@@ -52,14 +50,30 @@ def from_mic():
             
             keyword_detected = False
             endword_detected = any(re.search(re.escape(endword), transcription, re.IGNORECASE) for endword in endwords)
+            action_word_detected = any(re.search(re.escape(action_word), transcription, re.IGNORECASE) for action_word in action_words)
             
             response = None
+            if action_word_detected:
+                print("Action word detected.")
+                to_speaker("Are you sure?")
+                while True:
+                    result = speech_recognizer.recognize_once_async().get()
+                    confirmation = result.text.strip()
+                    print(confirmation)
+                    if any(re.search(re.escape(confirmation_word), confirmation, re.IGNORECASE) for confirmation_word in confirmation_words):
+                        print("Confirmation received: {}".format(confirmation))
+                        # Perform the tuck or untuck action here
+                        to_speaker("Action confirmed.")
+                        break
+                    else:
+                        print("No confirmation detected. Please confirm.")
+                continue  # Skip the rest of the loop after processing the action word
+            
             for keyword in keywords:
                 match = re.search(re.escape(keyword), transcription, re.IGNORECASE)
                 if match:
                     print('KeyPhrase detected.')
                     keyword_detected = True
-                    # Extract substring from the keyword to the end of the string
                     start_index = match.start()
                     transcription = transcription[start_index:]
                     print(f"This text will be sent to GPT '{transcription}'")
@@ -73,7 +87,7 @@ def from_mic():
                 print("Ending conversation.")
                 break  # Exit the loop if an endword is detected
             
-            if not keyword_detected and not endword_detected:
+            if not keyword_detected and not endword_detected and not action_word_detected:
                 print('No keywords detected, continue listening.')
                 printline()
         elif result.reason == speechsdk.ResultReason.NoMatch:
@@ -86,11 +100,7 @@ def from_mic():
                 print("Did you set the speech resource key and region values?")
                 break
 
-
-
-
 def to_speaker(text):
-    #text = "Bandit, " + text
     speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
     
     if speech_synthesis_result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
