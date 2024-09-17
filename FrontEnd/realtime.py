@@ -7,7 +7,8 @@ from rosieTextGen import textGen
 
 keywords = ['Hey, Rosie', 'Hey Rosie', 'Hi, Rosie', 'Hi Rosie', 'Rosie']
 endwords = ['End conversation.', 'That will be all.']
-action_words = ['Rosie, untuck', 'Rosie, tuck', 'Hey Rosie, untuck', 'Hey Rosie, tuck']
+# action_words = ['Rosie, untuck', 'Rosie, tuck', 'Hey Rosie, untuck', 'Hey Rosie, tuck']
+action_words = ['untuck', 'tuck']
 confirmation_words = ['Yes, untuck', 'Yes, tuck', 'Please untuck', 'Please tuck']
 
 speech_config = speechsdk.SpeechConfig(subscription=os.environ.get('SPEECH_KEY'), region=os.environ.get('SPEECH_REGION'))
