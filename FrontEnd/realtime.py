@@ -14,7 +14,7 @@ from rosieTextGen import textGen
 #    print("Environment variables loaded correctly.")
 
 keywords = ['Hey, Rosie', 'Hey Rosie', 'Hi, Rosie', 'Hi Rosie']
-actionwords = ['tuck', 'untuck', 'push', 'open', 'close']
+actionwords = ['tuck', 'untuck', 'push', 'open', 'close','extend','contract']
 endwords = ['End conversation.', 'That will be all.']
 
 # Azure speech service setup
