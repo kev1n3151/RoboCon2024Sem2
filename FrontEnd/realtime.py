@@ -4,9 +4,7 @@ import time
 import azure.cognitiveservices.speech as speechsdk
 from rosieTextGen import textGen
 
-# Environment variables
-#speech_key = 'e79b2f4680b24fe5b24d91384e7faa21'
-#speech_region = 'eastus'
+
 
 #if not speech_key or not speech_region:
 #    print(f"Environment variables not set correctly. SPEECH_KEY={speech_key}, SPEECH_REGION={speech_region}")
@@ -14,7 +12,9 @@ from rosieTextGen import textGen
 #    print("Environment variables loaded correctly.")
 
 keywords = ['Hey, Rosie', 'Hey Rosie', 'Hi, Rosie', 'Hi Rosie']
-actionwords = ['tuck', 'untuck', 'push', 'open', 'close','extend','contract']
+actionwords = ['tuck', 'untuck', 'push', 'open', 'close','extend','contract','roll out arms','roll in arms']
+#word to cancel an action, may not be necessary for current program itteration 
+actionstop = ['stop','no','nah','dont',"don't",'negative', 'do not'] 
 endwords = ['End conversation.', 'That will be all.']
 
 # Azure speech service setup
@@ -73,7 +73,13 @@ def from_mic():
                         # Wait for user response
                         confirmation = speech_recognizer.recognize_once_async().get().text.strip()
                         if re.search(f"yes, {actionword}", confirmation, re.IGNORECASE):
-                            to_speaker(f"Performing {actionword}.")
+                            #warn people to move before performing action
+                            to_speaker("please stand back")
+                            time.sleep(4)
+                            to_speaker("please stand back, i don't want to hit you!")
+                            time.sleep(2)
+                            #ensure bash script refects for safety word
+                            to_speaker(f"I am going to {actionword}.") 
                             # Placeholder for your actual script that will run when confirmed
                             print(f"Action '{actionword}' confirmed and executed.")
                         else:
