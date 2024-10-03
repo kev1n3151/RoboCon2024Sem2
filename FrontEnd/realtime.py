@@ -121,6 +121,8 @@ def to_speaker(text):
 
 # Main
 try:
+    # used to announce that rosie is ready to function. delete/edit if issues arise from the line below
+    to_speaker("I am ready to operate.")
     rosieText = textGen()
     from_mic()
 except Exception as err:
