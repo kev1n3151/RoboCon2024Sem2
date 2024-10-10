@@ -12,7 +12,7 @@ from rosieTextGen import textGen
 #    print("Environment variables loaded correctly.")
 
 keywords = ['Hey, Rosie', 'Hey Rosie', 'Hi, Rosie', 'Hi Rosie']
-actionwords = ['tuck', 'untuck', 'push', 'open', 'close','extend','contract','roll out arms','roll in arms']
+actionwords = ['roll out arms','roll in arms']
 #word to cancel an action, may not be necessary for current program itteration 
 actionstop = ['stop','no','nah','dont',"don't",'negative', 'do not'] 
 endwords = ['End conversation.', 'That will be all.']
