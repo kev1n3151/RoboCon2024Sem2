@@ -1,6 +1,6 @@
 # RoboCon 2024 Semester 2
 
-*This repository is a continuation/build off of the RosieCon2023 by Jasper Avice Demay*
+## This repository is a continuation/build off of the RosieCon2023 project by Jasper Avice Demay ##
 
 Original Repo can be found [here](https://github.com/JasperAviceDemay/RosieCon2023Sem2) 
 
