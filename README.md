@@ -2,7 +2,7 @@
 
 This is a cloned repo of RosieCon2023 by Jasper.
 
-Original Repo can be found [here](https://github.com/oobabooga/text-generation-webui) 
+Original Repo can be found [here](https://github.com/JasperAviceDemay/RosieCon2023Sem2) 
 
 Mentor: Dr Ian Peake
 Client: Professor James Harland
