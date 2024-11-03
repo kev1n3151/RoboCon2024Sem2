@@ -1,0 +1,4 @@
+export DISPLAY=:0
+xhost +
+NAME=tuck
+docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name=$NAME --privileged --device /dev/snd:/dev/snd --network host -it robocon bash -c "./tuck.bash"
