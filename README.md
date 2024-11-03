@@ -7,6 +7,13 @@ Original Repo: ``` https://github.com/JasperAviceDemay/RosieCon2023Sem2 ```
 Mentor: Dr Ian Peake
 Client: Professor James Harland
 
+Authors: 
+- Kevin Lam | s3840027
+- Michael Khalil | s3944778
+- Youngjin Kim | s3892555
+- Puran Grewal | s3944779
+- Meghana Mirian Anil | s392518
+
 ### Front-End
 Front-End adapted from the [Chats-With-Rosie project](https://github.com/Chats-With-Rosie/rosie-front-end)
 
