@@ -1,0 +1,3 @@
+#!/bin/bash
+./run-docker
+gnome-terminal -- bash -c "sudo ./actionmonitor.sh; exec bash"

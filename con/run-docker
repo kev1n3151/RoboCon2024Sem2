@@ -1,0 +1,8 @@
+export DISPLAY=:0
+xhost +
+NAME=rocroc
+docker rm -f $NAME
+./build-docker && \
+#RUN echo 'dont forget to comment lines in alsa'
+docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name=$NAME --privileged --device /dev/snd:/dev/snd --network host -it robocon bash -c "dos2unix /robocon/RoboCon2024Sem2/startcon.sh && /robocon/RoboCon2024Sem2/startcon.sh; bash"
+

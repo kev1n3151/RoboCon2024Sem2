@@ -1,0 +1,8 @@
+export DISPLAY=:0
+xhost +
+NAME=roboconuntuck
+docker rm -f $NAME
+./build-docker && \
+#docker run --name=rr --net=host -it rosie-reality bash
+#docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --user="root:vxlab" --name=rr --net=host -it rosie-reality bash
+docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name=$NAME --privileged --net=host -it robocon-untuck ./root/ws_baxter/src/baxter_tools/scripts
